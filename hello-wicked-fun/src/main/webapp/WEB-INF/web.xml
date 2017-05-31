@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name>hello-wicked-fun</display-name>
+  <filter>
+    <filter-name>wicket.hello-wicked</filter-name>
+    <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
+    <init-param>
+      <param-name>applicationClassName</param-name>
+      <param-value>de.uhh.lt.sandbox.WicketApplication</param-value>
+    </init-param>
+    <init-param>
+      <param-name>configuration</param-name>
+      <param-value>deployment</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>wicket.hello-wicked</filter-name>
+    <url-pattern>/hello/*</url-pattern>
+  </filter-mapping>
+  <filter>
+    <filter-name>HelloWickedWorldApplication</filter-name>
+    <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
+    <init-param>
+      <param-name>applicationClassName</param-name>
+      <param-value>de.uhh.lt.sandbox.HelloWickedWorldApplication</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>HelloWickedWorldApplication</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+</web-app>

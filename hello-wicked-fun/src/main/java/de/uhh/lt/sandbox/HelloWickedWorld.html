@@ -1,0 +1,58 @@
+<html xmlns:wicket="http://wicket.apache.org">
+<header>
+<script> 
+	function callwicket() { 
+		var url = document.getElementById('callBackUrl').value;
+		alert(url); 
+		Wicket.Ajax.get( {"u":url} ); 
+	} 
+	  function goToURL(event,url,wname) {
+	      event.preventDefault();
+	      var w = window.open(url, wname);
+	      w.focus();
+	  }
+</script>
+</header>
+<body>
+    <span wicket:id="message">Message goes here</span>
+    <select wicket:id="dropdown"></select>
+    <div wicket:id="checkboxes">
+    	<input wicket:id="checkbox" type="checkbox" />
+    	<label wicket:for="checkbox"><b wicket:id="checkboxdesc"></b></label>
+    </div>
+    
+    <video wicket:id="media" controls="controls" width="320" height="240">
+		<source src="http://hdl.handle.net/11022/0000-0000-5084-0@WEBM" type="video/webm" />
+	</video>
+	
+	<div onclick="callwicket();">Call Wicket NOW!!</div>
+	<div wicket:id="cntr">SOMETHING WILL BE GENERATED HERE!</div>
+	<input type="hidden" wicket:id="callBackUrl" id="callBackUrl" />
+	
+    
+   	<div wicket:id="segments">
+   	    
+    	<!-- one table per segment -->
+       	<table class="p" border="1">
+		<!--  first row: reference listview / annotation view and media button -->
+		<tr><td class="snc">
+			<a wicket:id="listref" class="snc-anc" href="HERE GOES THE LINK TO THE ANNOTATION VIEW" title="Click to show utterance list">HERE GOES THE SEGMENT ID</a>
+			<img wicket:id="mediaref" class="media" />
+		</td></tr>
+		<!--  next rows: set speaker texts -->
+		<tr class="v" wicket:id="segspeakertexts"><td colspan="1" class="v">
+			<span wicket:id="segspeakertext">HERE GOES THE TEXT SOMEONE HAS TO SAY</span>
+		</td></tr>
+		
+		<!--  next rows: set annotation texts -->
+		<tr class="en" wicket:id="segannotationtexts"><td colspan="1" class="b en">
+			<span wicket:id="segannotationtext"></span>
+		</td></tr>
+		</table>
+		
+    </div>
+    
+
+    
+</body>
+</html>
