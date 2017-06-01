@@ -12,6 +12,8 @@ import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.attributes.AjaxCallListener;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.form.AjaxFormChoiceComponentUpdatingBehavior;
 import org.apache.wicket.event.IEvent;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -70,8 +72,6 @@ public class HelloWickedWorld extends WebPage {
 				item.add(lbl);
 			}
 		});
-		
-
 
 		Label l = new Label("cntr","0");
 		l.setOutputMarkupId(true);
@@ -80,13 +80,17 @@ public class HelloWickedWorld extends WebPage {
 		behave = new AbstractDefaultAjaxBehavior() {
 			private static final long serialVersionUID = 1L;
 			int c = 0;
+			
 			@Override
 			protected void respond(AjaxRequestTarget target) {
-				l.setDefaultModelObject(String.valueOf(++c));
+				l.setDefaultModelObject("http://test.com/" + String.valueOf(++c));
 				
 				target.add(l);
 				
-				target.appendJavaScript("goToURL(event,'http://google.de','goog')");
+				String url = "http://www.google.de/";
+				String windowname = "test";
+				target.appendJavaScript("setURL('"+url+"')");
+				target.appendJavaScript("setWindowName('"+windowname+"')");
 			}
 		};
 		add(behave);

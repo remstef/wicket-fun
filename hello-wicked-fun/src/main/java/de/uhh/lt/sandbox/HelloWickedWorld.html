@@ -1,16 +1,65 @@
 <html xmlns:wicket="http://wicket.apache.org">
 <header>
-<script> 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	// GLOBAL VARS
+	var linkurl = "linkurl";
+	var windowname = "windowname";
+	var finished = false;
+	
+	function setURL(text) {
+		linkurl = text;
+	}
+	
+	function setWindowName(text) {
+		windowname = text;
+	}
+	
+	// INIT
+	// set onSuccess & onAfter Listener
+	// requires jQuery
+	$( document ).ready(function() {
+	    
+		Wicket.Event.subscribe('/ajax/call/success', function(jqEvent, attributes, jqXHR, settings) {
+			finished = true;
+		});
+	    
+		Wicket.Event.subscribe('/ajax/call/after', function(jqEvent, attributes, jqXHR, settings) {
+				openLink();
+		});
+
+	});
+	
+	// FUNCTIONS
+	// calls wicket function by callbackurl
+	// callbackurl has to be set in hidden element
 	function callwicket() { 
 		var url = document.getElementById('callBackUrl').value;
-		alert(url); 
-		Wicket.Ajax.get( {"u":url} ); 
+		Wicket.Ajax.get( {"u":url } ); 
 	} 
-	  function goToURL(event,url,wname) {
-	      event.preventDefault();
-	      var w = window.open(url, wname);
-	      w.focus();
-	  }
+	
+	// opens link after AJAX call has finished
+	async function openLink() {
+	  	while(!finished){
+	  		await sleep(100);
+	  	}
+	  	
+	  	goToURL();
+	  	
+	  	finished = false;
+	}	
+	
+	// HELPER
+	// waits for ms millicseconds
+	function sleep(ms) {
+		return new Promise(resolve => setTimeout(resolve, ms));
+	}	
+	
+	// opens linkurl in new tab windowname
+	function goToURL() {
+		var w = window.open(linkurl, windowname);
+		w.location;
+	}
 </script>
 </header>
 <body>
